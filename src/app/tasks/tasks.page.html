@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>TAREAS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <p>Aca podras ver las tareas mas relevantes en tu dia a dia</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <ion-item *ngFor="let task of tasks" (click)="goToTask(task)">
+      <ion-label>{{ task.name }}</ion-label>
+      <ion-note slot="end" color="medium">{{ task.completed }}</ion-note>
+      <ion-text *ngIf="task.status == 'Completada'" color="success">{{task.status}}</ion-text>
+      <ion-text *ngIf="task.status == 'No completada'" color="danger">{{task.status}}</ion-text>
+      <ion-text *ngIf="task.status == 'En progreso'" color="warning">{{task.status}}</ion-text>
+      <ion-icon slot="end" name="pencil" (click)="editTask(task.id)" color="primary"></ion-icon>
+      <ion-icon slot="end" name="trash" color="danger" (click)="deleteTask(task.id)"></ion-icon>
+    </ion-item>
+    <ion-item *ngIf="tasks.length === 0" lines="none">
+      <ion-label>No hay tareas disponibles</ion-label>
+    </ion-item>
+    <ion-item lines="none" *ngIf="loading">
+      <ion-spinner name="crescent"></ion-spinner>
+      <ion-label>Cargando tareas...</ion-label>
+    </ion-item>
+    <ion-item lines="none" *ngIf="error">
+      <ion-icon name="warning" slot="start"></ion-icon>
+      <ion-label color="danger">Error al cargar tareas</ion-label>
+    </ion-item>
+    <ion-item lines="none" *ngIf="!loading && !error && tasks.length === 0">
+      <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+      <ion-label color="success">No hay tareas pendientes</ion-label>
+    </ion-item>
+    <ion-item lines="none" *ngIf="!loading && !error && tasks.length > 0">
+      <ion-icon name="checkmark-circle" color="primary" slot="start"></ion-icon>
+      <ion-label color="primary">Tienes {{ tasks.length }} tareas pendientes</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-segment value="buttons">
+      <ion-segment-button value="default" (click)="addTask()">
+        <ion-label>Agergar</ion-label>
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

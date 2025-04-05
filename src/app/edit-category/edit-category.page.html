@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Editar Categoria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Editar Categoria</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nombre de la categoria</ion-label>
+        <ion-input type="text" [(ngModel)]="category.name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Activo</ion-label>
+        <ion-select placeholder="Selecciona una opcion" [(ngModel)]="category.status">
+          <ion-select-option value="si">Si</ion-select-option>
+          <ion-select-option value="no">No</ion-select-option>          
+        </ion-select>
+      </ion-item>
+    
+      <ion-button expand="full" (click)="updateCategory()">Actualizar
+        Categoria</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
